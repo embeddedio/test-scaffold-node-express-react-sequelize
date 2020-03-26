@@ -1,0 +1,24 @@
+{"message":"Initializing Sequelize...","level":"info","service":"user-service"}
+{"message":"Finished Connecting to Database","level":"info","service":"user-service"}
+{"service":"user-service","level":"error","message":"An error occured: %j"}
+{"message":"Initializing Sequelize...","level":"info"}
+{"message":"Finished Connecting to Database","level":"info"}
+{"level":"error","message":"An error occured: %j"}
+{"message":"Initializing Sequelize...","level":"info"}
+{"message":"Finished Connecting to Database","level":"info"}
+{"level":"error","message":"An error occured: %j"}
+{"message":"Initializing Sequelize...","level":"info"}
+{"message":"Finished Connecting to Database","level":"info"}
+{"message":"Database synchronized","level":"info"}
+{"level":"error","message":"An error occured: %j"}
+{"message":"Initializing Sequelize...","level":"info"}
+{"message":"Finished Connecting to Database","level":"info"}
+{"message":"Database synchronized","level":"info"}
+{"level":"error","message":"An error occured: %j"}
+{"message":"Initializing Sequelize...","level":"info"}
+{"message":"Finished Connecting to Database","level":"info"}
+{"message":"Database synchronized","level":"info"}
+{"level":"error","message":"An error occured: %j"}
+{"message":"Initializing Sequelize...","level":"info"}
+{"message":"Finished Connecting to Database","level":"info"}
+{"message":"Database synchronized","level":"info"}

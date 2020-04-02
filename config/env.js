@@ -6,7 +6,7 @@ module.exports = {
 	    host: process.env.DB_HOST || "localhost",
 	    port: process.env.DB_PORT || 5432,
 	    username: process.env.DB_USERNAME || "postgres",
-	    password: process.env.DB_PASSWORD || "test",
+	    password: process.env.DB_PASSWORD || "ucf",
 	    dialect: process.env.DB_DIALECT || "postgres", //mysql, postgres, sqlite3,...
 	    enableSequelizeLog: process.env.DB_LOG || false,
 	    ssl: process.env.DB_SSL || false,
@@ -17,6 +17,10 @@ module.exports = {
         description: 'test',
         keywords: 'test'
     },
-    port: process.env.PORT || 3000,
-
+	port: process.env.PORT || 3000,
+	NODE_ENV:'development',
+	JWT_SECRET : 'test',
+	JWT_KEY : 'E01l02AqW', 
+	JWT_ALGO: 'aes-256-ctr',
+	JWT_EXPIRE : '7d'
 };

@@ -5,7 +5,8 @@
  */
 const   _       = require('lodash'),
 	    glob    = require('glob'),
-	    moment  = require('moment');
+		moment  = require('moment'),
+		crypto 	= require('crypto');
 
 
         
@@ -92,3 +93,22 @@ function incDateWith(linearDate){
 
 	return moment().add(momentFormatObj);
 }
+
+
+
+/**
+*  Crypt Token
+*/
+module.exports.cryptToken= function(token){	
+	let newTok = token.replace('.','O.e')
+	return newTok
+};
+
+
+/**
+*  Decrypt Token
+*/
+module.exports.decryptToken= function(token){
+	let newTok = token.replace('O.e','.')
+	return newTok
+};

@@ -6,23 +6,25 @@
 
 
  
-var fs = require('fs'),
-	http = require('http'),
-	https = require('https'),
-	express = require('express'),
-	bodyParser = require('body-parser'),
-	morgan = require('morgan'),
-	session = require('express-session'),
-	compress = require('compression'),
-	methodOverride = require('method-override'),
-	cookieParser = require('cookie-parser'),
-	helmet = require('helmet'),
-	passport = require('passport'),
-	flash = require('connect-flash'),
-	config = require('./config'),
-	path = require('path'),
-	cors = require('cors'),
-	socketio = require('socket.io');
+const 	fs 				= require('fs'),
+		http 			= require('http'),
+		https 			= require('https'),
+		express 		= require('express'),
+		bodyParser 		= require('body-parser'),
+		morgan 			= require('morgan'),
+		session 		= require('express-session'),
+		compress 		= require('compression'),
+		methodOverride 	= require('method-override'),
+		cookieParser 	= require('cookie-parser'),
+		helmet 			= require('helmet'),
+		passport 		= require('passport'),
+		flash 			= require('connect-flash'),
+		config 			= require('./config'),
+		path 			= require('path'),
+		cors 			= require('cors'),
+		jwt 			= require('jsonwebtoken'),
+		User 			= require(path.resolve('./app/controllers/users.controller')),
+		socketio 		= require('socket.io');
 
 
  
@@ -69,15 +71,15 @@ module.exports = function(db) {
 	app.set('view engine', 'html');
 
 	// Environment dependent middleware
-	//if (process.env.NODE_ENV === 'development') {
+	if (config.NODE_ENV === 'development') {
 		// Enable logger (morgan)
 		app.use(morgan('dev'));
 
 		// Disable views cache
 		app.set('view cache', false);
-	/*} else if (process.env.NODE_ENV === 'production') {
+	} else {
 		app.locals.cache = 'memory';
-	}*/
+	}
 
 
 	// Request body parsing middleware should be above methodOverride
@@ -108,6 +110,28 @@ module.exports = function(db) {
 		next();
 	});
 
+	
+
+
+	app.use(async (req, res, next) => {
+		if (req.headers["x-access-token"]) {		
+			try {
+				let accessToken = req.headers["x-access-token"];
+					accessToken = config.decryptToken(accessToken);
+
+				const { userId,userRole, exp } = await jwt.verify(accessToken, config.JWT_SECRET);
+
+			} catch(err) {
+				return res.status(401).json({ error: "JWT token has expired, please login to obtain a new one" });
+			}			
+		}
+		next();
+	});
+
+
+
+
+
 	// CookieParser should be above session
 	app.use(cookieParser());
 
@@ -136,6 +160,7 @@ module.exports = function(db) {
 
 	// Assume 'not found' in the error msgs is a 404. this is somewhat silly, but valid, you can do whatever you like, set properties, use instanceof etc.
 	app.use(function(err, req, res, next) {
+
 		// If the error object doesn't exists
 		if (!err) return next();
 
@@ -155,6 +180,8 @@ module.exports = function(db) {
 			error: 'Not Found'
 		});
 	});
+
+
 
 	// Attach Socket.io
 	var server = http.createServer(app);

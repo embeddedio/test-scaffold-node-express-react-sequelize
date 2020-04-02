@@ -23,10 +23,3 @@ exports = module.exports = app;
 // Logging initialization
 console.log('APP application started on port 3000');
 
-
-
-app._router.stack.forEach(function(r){
-	if (r.route && r.route.path){
-	  console.log(r.route.path)
-	}
-  })

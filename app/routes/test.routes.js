@@ -9,6 +9,9 @@ module.exports = function(app) {
 	
 	app.route('/test')
         .get(users.hasAuthorization(['ROLE_USER','ROLE_ADMIN']),core.test)
+       
+        app.route('/test2')
+        .get(core.test)
 
 	
 };
